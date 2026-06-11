@@ -1,0 +1,40 @@
+title = "igorvrabie.dev"
+
+base_url = "https://igorvrabie.dev"
+theme = "colorized"
+
+compile_sass = true
+build_search_index = false
+
+generate_feeds = true
+feed_filenames = ["atom.xml"]
+
+taxonomies = [{ name = "tags" }]
+
+[markdown]
+github_alerts = true
+
+[markdown.highlighting]
+theme = "minimal-smoke"
+extra_themes = ["extras/minimal-theme.json"]
+
+[extra]
+site_title = "igorvrabie.dev"
+landing_subtitle = "Igor Vrabie"
+copyright_holder = "Igor Vrabie"
+copyright_url = "https://igorvrabie.dev"
+
+nav_links = [
+  { name = "about", path = "/about" },
+  { name = "blog", path = "/blog" },
+  { name = "tags", path = "/tags" },
+]
+
+footer_links = []
+
+landing_center = 1
+landing_chars = [
+  { char = "igor", class = "c-muted" },
+  { char = "vrabie", class = "shimmer" },
+  { char = ".dev", class = "c-muted" },
+]
