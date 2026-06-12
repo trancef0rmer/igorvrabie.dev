@@ -12,6 +12,6 @@ Hey. I'm Igor.
 
 **Personal:** Linux evangelist. FOSS believer. Information wants to be free. Privacy matters. Running a Raspberry Pi home server — because renting someone else's computer is not my thing. The *arr stack runs itself — which means I spend weekends fixing it. Cheaper than Netflix, more educational, and nobody can cancel my subscription. btw, I use CachyOS — because Arch, but I have a life. Hyprland — keyboard only. Unless it's gaming, then Windows and a PS5 controller. Hollow Knight mostly, Elden Ring when I hate myself. I don't talk about it. I break things on purpose to understand how they work. Avid reader. Hard sci-fi. If it can't happen, it doesn't count. Asimov when humanity needs a mirror, Jung when the void stares back. Did I mention BBQ? If Claudiu takes my job, I'll be definitely cooking. Craft beer — pairs well with absolutely everything above.
 
-This is my very own corner of the internet. No agenda, no personal brand. Just a place to write and share things I find interesting.
+This is my very own corner of the internet. No agenda, no personal brand. Just a place to write and share things I find interesting. Should be fine for children under 18, but parents read ahead — I might swear.
 
 Find me on [GitHub](https://github.com/trancef0rmer).
