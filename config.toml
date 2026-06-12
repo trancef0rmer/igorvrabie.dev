@@ -20,7 +20,7 @@ extra_themes = ["extras/minimal-theme.json"]
 
 [extra]
 site_title = "igorvrabie.dev"
-landing_subtitle = "Igor Vrabie"
+landing_subtitle = "it works on my machine"
 copyright_holder = "Igor Vrabie"
 copyright_url = "https://igorvrabie.dev"
 

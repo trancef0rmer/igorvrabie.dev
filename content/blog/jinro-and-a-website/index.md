@@ -33,5 +33,3 @@ Site's live. Styles work. DNS propagated. Claudiu still has a job. For now.
 If you want to do the same — the theme is [colorized](https://colorized.life) by [Lany Atwood](https://colorized.life), go give them some credit. Zola is free. Cloudflare Pages is free. The domain costs ~$10/year. Jinro is optional but recommended. Claude tokens — you'll figure it out.
 
 If this is what having a website feels like, I understand why people just use LinkedIn.
-
-<img src="jinro.png" alt="Five bottles of Jinro soju — grapefruit, strawberry, green grape, peach, plum" style="width:100%">
