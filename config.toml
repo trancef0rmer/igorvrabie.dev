@@ -1,4 +1,4 @@
-title = "igorvrabie.dev"
+title = "Igor Vrabie"
 
 base_url = "https://igorvrabie.dev"
 theme = "colorized"
@@ -19,7 +19,7 @@ theme = "minimal-smoke"
 extra_themes = ["extras/minimal-theme.json"]
 
 [extra]
-site_title = "igorvrabie.dev"
+site_title = "Igor Vrabie"
 landing_subtitle = "it works on my machine"
 copyright_holder = "Igor Vrabie"
 copyright_url = "https://igorvrabie.dev"
