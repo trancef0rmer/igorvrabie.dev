@@ -11,6 +11,7 @@
   <title>{% block title %}{{ config.title }}{% endblock %}</title>
   {% block head_styles %}
   <link rel="stylesheet" href="{{ get_url(path='style.css', cachebust=true) }}">
+  <link rel="stylesheet" href="{{ get_url(path='custom.css', cachebust=true) }}">
   {% include "partials/theme_overrides.html" %}
   {% endblock %}
   {% block head_scripts %}

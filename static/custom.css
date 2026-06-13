@@ -1,0 +1,38 @@
+@media (max-width: 480px) {
+  .post-list .post-header {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .post-list a {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 30rem) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  nav .nav-left {
+    flex-shrink: 1;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  nav .nav-separator {
+    display: none;
+  }
+
+  nav .nav-middle {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  nav .nav-right {
+    margin-left: 0;
+  }
+}
