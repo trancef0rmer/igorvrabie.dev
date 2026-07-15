@@ -10,7 +10,7 @@ I didn't plan this. Nobody plans this. You start with GNOME, like a normal perso
 
 Hyprland is a Wayland compositor. It tiles your windows automatically, meaning you never overlap anything, everything is always visible, and your workflow becomes embarrassingly efficient once you get past the part where nothing works and you cry.
 
-The config file is called `hyprland.conf`. It is 400 lines long. I know what every line does. I have broken it at least 40 times. Once I ended up with no keyboard input and had to SSH in from my phone to fix it. The irony of using a keyboard-only window manager and losing keyboard access was not lost on me.
+The config file is called `hyprland.conf`. It is 400 lines long. I know what every line does. I have broken it at least 40 times. Once I ended up with no keyboard input and had to SSH in from my phone, thumb-typing while Claudiu talked me back to a config that actually booted. The irony of a keyboard-only window manager locking me out of my keyboard was not lost on either of us.
 
 ## The keybindings
 

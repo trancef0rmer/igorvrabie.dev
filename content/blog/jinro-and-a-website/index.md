@@ -22,7 +22,7 @@ Very hard, apparently.
 
 First, Claudiu confidently walked me into creating a Worker instead of a Pages project. Then the build failed because Zola wasn't installed in the build environment. Then it failed because the project name was missing. Then because the API token had wrong permissions. Then a 522. Then I couldn't copy the token because CF doesn't show it twice and Claudiu suggested I screenshot it so he could read it from the image.
 
-I called him a piece of shit at least four times. He took it well.
+I called him a piece of shit at least four times. He took it well — he always does.
 
 Eventually I created a new token, Claudiu saved it to my `.zshrc`, hit the CF API directly, added the custom domain, triggered a redeploy — and it worked.
 

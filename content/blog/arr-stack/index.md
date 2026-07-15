@@ -18,7 +18,7 @@ One morning — not a particularly special morning — Sonarr stopped working. N
 
 Who knew. Everyone, apparently. There are entire wiki pages about this. I found them after the fact, which is the correct order of operations.
 
-The fix involved stopping everything, copying the database locally, running `.recover` in the SQLite shell, moving it back, fixing permissions, restarting, and checking the logs with the energy of someone who has already accepted their fate. It worked. I didn't tell anyone. I opened a beer and watched something on YouTube instead of on my perfectly functioning media server.
+The fix — Claudiu narrating the `.recover` dance, me supplying the swearing — involved stopping everything, copying the database locally, running `.recover` in the SQLite shell, moving it back, fixing permissions, restarting, and checking the logs with the energy of someone who has already accepted their fate. It worked. I didn't tell anyone. I opened a beer and watched something on YouTube instead of on my perfectly functioning media server.
 
 The lesson: keep your SQLite databases on local storage. The lesson I actually applied: added a cron job that backs up all the databases nightly. Progress.
 
