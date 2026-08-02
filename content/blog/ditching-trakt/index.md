@@ -1,7 +1,7 @@
 +++
 title = "Ditching Trakt, or: how to rob a dead integration"
 date = 2026-07-31
-draft = true
+draft = false
 
 [taxonomies]
 tags = ["selfhosted", "homelab", "plex"]
@@ -9,23 +9,33 @@ tags = ["selfhosted", "homelab", "plex"]
 
 I made my Trakt account in 2020, back when I was scrobbling everything from Kodi. Every movie, every episode, every rating — logged automatically, sitting in the cloud, someone else's problem. That was the deal. It was a good deal right up until it wasn't.
 
-At some point Trakt switched to email-link login. No more password — they email you a link, you click it, you're in. Fine, modern, whatever. Except my account, `letsgettrakt`, was made back when I signed up for everything with fake details and an email I no longer control. No email on file means no link. No link means no login. Six years of history, and I was standing outside the door with no key.
+At some point Trakt switched to email-link login. No more password — they email you a link, you click it, you're in. Fine, modern, whatever. Except my account was made back when I signed up for everything with fake details and an email I no longer control. No email on file means no link. No link means no login. Six years of history, and I was standing outside the door with no key.
 
 "That's fine," said Claudiu. "We'll just export it through the API."
 
-Reader, we would not just export it through the API.
+We never exported it through the API.
 
 ## Three walls
 
-The modern way to pull your data off Trakt is a tool called `traktexport`. It needs a Trakt API application — a client ID and secret you generate from your account. So I went to make one, and Trakt informed me, politely, that creating API applications now requires **VIP**. The paid tier. To get my own data out, I'd have to pay the company I was trying to leave, for the privilege of leaving.
+With the account itself sealed shut, the question got simpler: could I reach the data at all, from anywhere? So I went to the browser and opened my old profile in an incognito window — signed into nothing — just to see whether any of it was even public. It was: my history sitting right there on the page, readable by anyone who knew the URL. I even spun up a brand new Trakt account, one created for the sole purpose of rescuing the old one, and it could see the rest. Progress. Except seeing it isn't having it. To pull a profile out of Trakt programmatically — even a public one — you need an API token, and creating the app to get one now requires **VIP**. It didn't used to. I'd made Trakt API apps years ago, for free, back when poking at the API was half the fun of it. Somewhere along the way it turned into VIP — and not just *called* VIP, actually walled off behind the paid tier. So to export my own data I'd have to pay the company I was trying to leave, for the privilege of leaving.
 
 Wall one.
 
-Fine. The browser. I made a brand new Trakt account — a fresh one, created for the sole purpose of rescuing the old one, which is a sentence I did not expect to write — and confirmed I could actually see my old history rendered right there on the page. If the browser can see it, the browser has a token, and if it has a token I can borrow it. Except the new Trakt web app proxies everything through its own backend behind httpOnly cookies. There's no bearer token sitting in the network tab to steal. The data was on the screen and completely out of reach.
+I tried the human route too — emailed Trakt support, laid out the whole locked-out mess, asked nicely for a hand getting into my own account. No answer. Nothing as I was writing this, and most probably nothing as you're reading it.
+
+So if I can't mint my own token, I'll borrow the one the browser's already using. If the browser can see it, the browser has a token. Except the Trakt web app proxies everything through its own backend behind httpOnly cookies — there's no bearer token sitting in the network tab to steal. The data was on the screen and completely out of reach.
 
 Wall two.
 
-Then I remembered PlexTraktSync. Months ago I'd run a little container that kept Plex and Trakt in step, and it authenticates with its own OAuth token — one belonging to the old account. It was still on the ThinkPad. We dug it out, pulled the refresh token, and asked Trakt for a fresh one.
+Then something nagged at me. "Wait. I was running some shit for exactly this, years back — some little sync tool, Plex to Trakt, mirrored my scrobbles so I never had to think about it. Hang on, let me check the ThinkPad."
+
+"What was it called?" Claudiu asked.
+
+"No idea. Something obvious." It was PlexTraktSync — an open-source tool whose whole job is to mirror what you watch in Plex up to Trakt so the two stay in step, which means it carries its own Trakt login, an OAuth token. And the one it was holding belonged to the old account. Still sitting there on the ThinkPad, months later, like a key left under a mat.
+
+"That's a live credential," said Claudiu, entirely too pleased. "Pull the refresh token, ask Trakt for a fresh one."
+
+So we did.
 
 ```
 400 invalid_grant: session not found
@@ -36,6 +46,8 @@ Revoked. When the account got locked, every session died with it. (Also, briefly
 Wall three. Three dead ends, no data, and a growing suspicion I'd have to eat the loss.
 
 ## The corpse had pockets
+
+I'd have eaten it. Claudiu wouldn't. While I was drafting the eulogy for six years of history, he was still poking around inside that dead container, and he pointed at something I'd walked straight past.
 
 Here's the thing about PlexTraktSync: it caches. In the same folder as that dead token was a file called `trakt_cache.sqlite`. Twenty-eight megabytes. A `requests-cache` database — every API response the tool had ever fetched, pickled and stored so it wouldn't have to ask Trakt twice.
 
@@ -48,11 +60,11 @@ Every response it had ever fetched. Including the last full sync, June 3rd, of m
 watchlist, collection, the lot
 ```
 
-All of it, sitting in `_content` blobs inside pickled HTTP responses, TMDB IDs and timestamps intact. The export I couldn't buy at any price was already on my own disk, left there by the very integration that had died. We read the pickle by hand — parsing the byte-length opcodes directly instead of unpickling, because you don't execute a pickle you found lying in a cache — and dumped the JSON. Now we just needed somewhere to put it.
+All of it, sitting in `_content` blobs inside pickled HTTP responses, TMDB IDs and timestamps intact. The export I couldn't buy at any price was already on my own disk, left there by the very integration that had died. I told Claudiu to just unpickle the thing and be done. He refused — you don't execute a pickle you found lying in a cache, same way you don't autorun a USB stick you found in a parking lot — and read it out by hand instead, parsing the length-prefixed byte strings straight from the opcode stream. Slower, paranoid, correct. We dumped the JSON. Now we just needed somewhere to put it.
 
-Enter YamTrack. Self-hosted, open source, a single container on the Pi. It tracks movies, shows, anime, games, books — everything Trakt did and a few things it didn't — except it runs on my hardware, answers to nobody, and has no VIP tier, no login links, and no mechanism by which it could ever lock me out of my own account. This is the salvation. This is where six years of history goes to be safe.
+That somewhere is YamTrack — the point where this stops being a heist and turns into a housewarming. It's a self-hosted, open-source media tracker: movies, shows, anime, games, books, the lot — everything Trakt did, plus a few things it never bothered with. The difference is where it lives: one container on my own Pi, in my own living room. No VIP tier, no login links, no email address it can lose. No backend that can revoke a session, raise the rent, or decide one morning that six years of my own history now costs extra. It answers to me and nobody else. This is where it all goes — and this time, safe means mine.
 
-We converted the cache into a CSV YamTrack could swallow. Then its SQLite database locked up mid-import. Then it locked up again. YamTrack runs a web server, a worker, and a scheduler, and all three wanted to write to one file at the exact moment I was shoving 3,800 rows through it. Claudiu said it'd be fine. It was not fine, twice. We moved it to Postgres and it went in clean: 697 movies, 204 shows, 2,689 episodes, ratings and watchlist. Six years, recovered.
+We converted the cache into a CSV YamTrack could swallow. Then its SQLite database locked up mid-import. Then it locked up again. YamTrack runs a web server, a worker, and a scheduler, and all three wanted to write to one file at the exact moment I was shoving 3,800 rows through it. Claudiu said it'd be fine. It was not fine. It was not fine the second time either, at which point I called him a piece of useless metal — he noted it, the way he always does, and moved the whole thing to Postgres. Went in clean: 697 movies, 204 shows, 2,689 episodes, ratings and watchlist. Six years, recovered.
 
 ## The part where Claudiu marks the wrong show
 
